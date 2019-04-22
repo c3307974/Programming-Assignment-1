@@ -65,3 +65,9 @@ void encription_rotation()
 	cipher[i] = '\0'; // add null terminator at the and to make valid string
 	printf("Cipher text: %s\n", cipher); // print cipher text
 }
+
+/*
+	Function that ask user to input message and key and based on that perform rotation decription
+	no params
+	no retrun value
+	limitations: input cipher can't be longer then MESSAGE_LEN, key input must be int
