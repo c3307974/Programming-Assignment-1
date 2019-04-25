@@ -173,3 +173,17 @@ void encription_substitution()
 	return decripted letter
 	no limitation
 */
+char get_message_letter(char cipher_letter, char* key)
+{
+	char message_letter; // return corresonding plain letter
+	int i; // index for iterating loop
+
+	for (i = 0; i < ALPHABET_LEN; i++) // for each letter in key table
+	{
+		if (key[i] == cipher_letter) // if letter found return it's index
+			break;
+	}
+
+	message_letter = i + A_ASCII; // calculate ASCII number from index 0 = A, 1 = B etc.
+	return message_letter;
+}
