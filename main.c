@@ -165,3 +165,11 @@ void encription_substitution()
 	printf("Cipher text: %s\n", cipher); // print cipher text
 
 }
+
+
+/*
+	Function seek from key table char and return corresonding plain message letter
+	params: first - char that need to be decript, second - key table
+	return decripted letter
+	no limitation
+*/
