@@ -117,3 +117,51 @@ decription_rotation_with_key()
 	printf("Message text: %s\n", message); // print message plain text
 
 }
+
+
+/*
+	Function that ask user to input message and key and based on that perform supstitute encription
+	no params
+	no retrun value
+	limitations: input message can't be longer then MESSAGE_LEN, key input must be 26 letters
+*/
+void encription_substitution()
+{
+	char message[MESSAGE_LEN]; // plain text message variable
+	char cipher[MESSAGE_LEN];// cipher text message variable
+	char key[ALPHABET_LEN + 1]; // variable that holds key, supstitution array +1 for \0
+	int tmpVal; // help variable for calculations
+	int i; // loop variable for indexing
+
+	fgets(message, MESSAGE_LEN, stdin); // flush stdin, read left \n sign
+
+	printf("Enter the message text (UPPERCASE): ");
+	fgets(message, MESSAGE_LEN, stdin); // read line of text - message
+
+	printf("Enter key - supstitution array UPPERCASE of length 26 (eg. QWERTYUIOPASDFGHJKLZXCVBNM): ");
+	scanf("%s", &key); // read supstitution array
+
+	for (i = 0; i < strlen(message); i++) // for each letter in message
+	{
+		if ((message[i] >= a_ASCII) && (message[i] <= z_ASCII)) // if letter is lowercase
+		{
+			message[i] = message[i] - 32; // translate it to UPPERCASE
+		}
+
+		if ((message[i] >= A_ASCII) && (message[i] <= Z_ASCII)) // if it is a letter, exclude white spaces, numbers etc..
+		{
+			tmpVal = message[i] - A_ASCII; // make values start from 0 as index for key table
+
+			cipher[i] = key[tmpVal]; // supstitute from key table
+
+		}
+		else
+		{
+			cipher[i] = message[i]; // if character is not letter just copy
+		}
+	}
+
+	cipher[i] = '\0'; // add null terminator at the and to make valid string
+	printf("Cipher text: %s\n", cipher); // print cipher text
+
+}
