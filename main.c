@@ -240,3 +240,38 @@ void decription_substitution_with_key()
 	params: first - cipher message to be rotated, second - rotation value
 	return rotated message
 */
+char* rotate(char* cipher, int key)
+{
+	int i;// loop variable for indexing
+	int tmpVal; // help variable for calculations
+	char message[MESSAGE_LEN]; // rotated text message variable
+
+
+	for (i = 0; i < strlen(cipher); i++) // for each letter in message
+	{
+		if ((cipher[i] >= a_ASCII) && (cipher[i] <= z_ASCII)) // if letter is lowercase
+		{
+			cipher[i] = cipher[i] - 32; // translate it to UPPERCASE
+		}
+
+		if ((cipher[i] >= A_ASCII) && (cipher[i] <= Z_ASCII)) // if it is a letter, exclude white spaces, numbers etc..
+		{
+			tmpVal = cipher[i] + key; // shift letter right
+
+			if (tmpVal > Z_ASCII) // if letter is beyond 'Z'
+				message[i] = tmpVal - ALPHABET_LEN; // substract from begining
+			else if (tmpVal < A_ASCII)
+				message[i] = tmpVal + ALPHABET_LEN; // if letter is before 'A'
+			else
+				message[i] = tmpVal; // substract from begining
+
+		}
+		else
+		{
+			message[i] = cipher[i]; // if character is not letter just copy
+		}
+	}
+
+	message[i] = '\0'; // add null terminator at the and to make valid string
+	return message;
+}
