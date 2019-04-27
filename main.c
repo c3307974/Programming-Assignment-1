@@ -311,3 +311,31 @@ double* frequencies(char *cipher)
 
 	return freq;
 }
+
+/*
+	Function calculates chi squared, that is number that represent how much frequencies of text
+	is close to English language
+	param: frequencies for which chi is calculated
+	return number that represent chi (the lower it is that's closer to English)
+*/
+double chi_squared(double* curr_freq)
+{
+	double chi = 0;
+	int i;// loop variable for indexing
+
+	for (i = 0; i < ALPHABET_LEN; i++) {
+		chi += (curr_freq[i] - known_freq[i]) * (curr_freq[i] - known_freq[i]); // calculation (squared) cause of negative numbers
+	}
+	return chi;
+
+}
+
+/*
+	Function that ask user to input cipher message and based on that perform rotation decription
+	witout key, attack is based on statistical calculations of letter frequencies
+	no params
+	no retrun value
+	limitations: input cipher can't be longer then MESSAGE_LEN, key input must be int
+				 cipher text that need to be break need to have some decent length
+				 the bigger text is the better chances for breaking, cause we can't take
+				 statistical data from small text, it's not enough
