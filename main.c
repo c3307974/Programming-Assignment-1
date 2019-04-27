@@ -275,3 +275,39 @@ char* rotate(char* cipher, int key)
 	message[i] = '\0'; // add null terminator at the and to make valid string
 	return message;
 }
+
+/*
+	Function caclulate frequencies of each letter in given text
+	param: message text which letters used to calculate frequencies
+	return array of frequencies for each letter index 0 for A, index 1 for B etc.
+*/
+double* frequencies(char *cipher)
+{
+	int i;// loop variable for indexing
+	int tmpVal; // help variable for calculations
+
+	// frequencies array for each letter index 0 for A, index 1 for B etc.
+	double freq[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	int letter_count = 0; // number of letters in text
+
+	for (i = 0; i < strlen(cipher); i++) // for each letter in message
+	{
+		if ((cipher[i] >= a_ASCII) && (cipher[i] <= z_ASCII)) // if letter is lowercase
+		{
+			cipher[i] = cipher[i] - 32; // translate it to UPPERCASE
+		}
+
+		if ((cipher[i] >= A_ASCII) && (cipher[i] <= Z_ASCII)) // if it is a letter, exclude white spaces, numbers etc..
+		{
+			tmpVal = cipher[i] - A_ASCII; // translate ascii values A to Z to values 0 to 25
+			freq[tmpVal]++; // count for each letter
+			letter_count++;
+		}
+	}
+
+	for (int i = 0; i < 26; i++) { // calculate frequencies for each letter count
+		freq[i] = freq[i] / letter_count;
+	}
+
+	return freq;
+}
