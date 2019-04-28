@@ -339,3 +339,46 @@ double chi_squared(double* curr_freq)
 				 cipher text that need to be break need to have some decent length
 				 the bigger text is the better chances for breaking, cause we can't take
 				 statistical data from small text, it's not enough
+*/
+void decription_rotation_without_key()
+{
+	char message[MESSAGE_LEN];; // plain text message variable
+	char* curr_message; // current rotated message, potentional plain text
+	char curr_message_array[MESSAGE_LEN]; // current rotated message array, potentional plain text
+	char cipher[MESSAGE_LEN]; // cipher text message variable
+	int i, j; // loop variables for indexing
+	double* curr_freq; // current freqs of rotated message, potentional plain text
+	double curr_freq_array[ALPHABET_LEN];// current freqs array of rotated message, potentional plain text
+	double curr_chi;// current chi of rotated message, potentional plain text
+	double curr_best_chi = 100000000;	// variable that stores best calculated chi of potential plain text
+	// chi is value that represent how much text is close to English language
+	// the lower value the better
+
+
+	fgets(cipher, MESSAGE_LEN, stdin); // flush stdin, read left \n sign
+
+	printf("Enter the cipher text (UPPERCASE): ");
+	fgets(cipher, MESSAGE_LEN, stdin); // read line of text - cipher
+
+	// try each possible rotation (all 26) and detemine what rotation is closest
+	// to English statistics
+	for (i = 0; i < ALPHABET_LEN; i++)
+	{
+		curr_message = rotate(cipher, i); // rotation of message
+		strcpy(curr_message_array, curr_message); // copy to array so it can be passed as argument
+		curr_freq = frequencies(curr_message_array); // freqs calculation
+
+		for (j = 0; j < ALPHABET_LEN; j++) // copy to array so it can be passed as argument
+			curr_freq_array[j] = curr_freq[j];
+
+		curr_chi = chi_squared(curr_freq_array); // calculate chi
+
+		if (curr_chi < curr_best_chi) { // if new caluclated chi has lower value remember text and chi as current best
+			curr_best_chi = curr_chi;
+			strcpy(message, curr_message_array);
+		}
+	}
+
+	printf("Message text: %s\n", message); // print message plain text
+
+}
