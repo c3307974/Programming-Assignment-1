@@ -382,3 +382,54 @@ void decription_rotation_without_key()
 	printf("Message text: %s\n", message); // print message plain text
 
 }
+
+
+/*
+	Main function that display menu options and routing correpsonging function calls
+	no params
+	return 0
+*/
+int main()
+{
+	int choice = 0;
+
+	do
+	{
+		printf("1. Encryption of a message with a rotation cipher given the message text and rotation amount\n");
+		printf("2. Decryption of a message encrypted with a rotation cipher given cipher text and rotation amount\n");
+		printf("3. Encryption of a message with a substitution cipher given message text and alphabet substitution\n");
+		printf("4. Decryption of a message encrypted with a substitution cipher given cipher text and substitutions\n");
+		printf("5. Decryption of a message encrypted with a rotation cipher given cipher text only\n");
+		printf("6. Exit\n");
+
+		printf("What is your choice? ");
+		scanf("%d", &choice);
+
+		switch (choice)
+		{
+		case 1:
+			encription_rotation();
+			break;
+		case 2:
+			decription_rotation_with_key();
+			break;
+		case 3:
+			encription_substitution();
+			break;
+		case 4:
+			decription_substitution_with_key();
+			break;
+		case 5:
+			decription_rotation_without_key();
+			break;
+		case 6:
+			printf("Good bye !\n");
+			break;
+		default:
+			printf("Incorrect choice, try again !\n");
+		}
+
+	} while (choice != 6);
+
+	return 0;
+}
